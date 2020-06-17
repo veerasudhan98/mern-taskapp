@@ -12,37 +12,49 @@ class ListTodo extends React.Component {
     }
 
     renderButton = (todo) => {
-        // if (this.props.local.isSignedIn === null) {
-        //     return "Loding..";
-        // } else {
-        return (
-            <div>
-                <div
-                    className="right floated content"
-                    style={{ textAlign: "right" }}
-                >
-                    <p
-                        style={{
-                            paddingRight: "200px",
-                            margin: "0px",
-                            textAlign: "center",
-                            width: "100px",
-                        }}
-                    >
-                        {todo.completed === true ? "completed" : "ongoing"}
+        if (!todo.title) {
+            return (
+                <div style={{ textAlign: "center" }}>
+                    <p>
+                        welcome {this.props.currentUser.userId.name}, push new
+                        to get started
                     </p>
-                    <Link
-                        style={{ paddingRight: "30px" }}
-                        to={`/todos/edit/${todo._id}`}
-                    >
-                        <i className="ui large gray edit outline icon"></i>
-                    </Link>
-                    <Link to={`/todos/delete/${todo._id}`}>
-                        <i className="ui large red trash alternate icon"></i>
-                    </Link>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <div
+                        className="right floated content"
+                        style={{ textAlign: "right" }}
+                    >
+                        <p
+                            style={{
+                                paddingRight: "200px",
+                                margin: "0px",
+                                textAlign: "center",
+                                width: "100px",
+                            }}
+                        >
+                            <i>
+                                {todo.completed === true
+                                    ? "completed"
+                                    : "ongoing"}
+                            </i>
+                        </p>
+                        <Link
+                            style={{ paddingRight: "30px" }}
+                            to={`/todos/edit/${todo._id}`}
+                        >
+                            <i className="ui large gray edit outline icon"></i>
+                        </Link>
+                        <Link to={`/todos/delete/${todo._id}`}>
+                            <i className="ui large red trash alternate icon"></i>
+                        </Link>
+                    </div>
+                </div>
+            );
+        }
     };
     renderCreateTaskButton = () => {
         return (
@@ -69,42 +81,35 @@ class ListTodo extends React.Component {
             );
         } else return <h4>{title}</h4>;
     };
+
     renderList = () => {
         return this.props.todos.map((todo) => {
-            console.log(todo.completed);
             return (
                 <div
+                    key={todo._id}
                     className="item"
                     style={{ padding: "10px" }}
-                    key={todo._id}
                 >
                     {this.renderButton(todo)}
                     <div style={{ paddingRight: "100px" }}>
                         {this.showTitle(todo.title, todo.completed)}
                     </div>
-
-                    {/* <div>
-                        <CheckBox
-                            completed={todo.completed}
-                            label={todo.title}
-                        />
-                    </div> */}
                 </div>
             );
         });
     };
-    reload = () => {
-        if (window.localStorage.getItem("isSignedIn") === "false") {
-            if (!window.location.hash) {
-                window.location = window.location + "#loaded";
-                window.location.reload();
-            }
-        }
-    };
+    // reload = () => {
+    //     if (window.localStorage.getItem("isSignedIn") === "false") {
+    //         if (!window.location.hash) {
+    //             window.location = window.location + "#loaded";
+    //             window.location.reload();
+    //         }
+    //     }
+    // };
     render() {
         // this.props.fetchTodos();
 
-        this.reload();
+        // this.reload();
 
         // const className = this.props.isSignedIn? "ui celled list":'';
         return (
@@ -119,7 +124,7 @@ class ListTodo extends React.Component {
 const mapStateToProps = (state) => {
     return {
         todos: Object.values(state.todo),
-        currentUserId: state.auth.userId,
+        currentUser: state.auth,
         isSignedIn: state.auth.isSignedIn,
         local: { isSignedIn: window.localStorage.getItem("isSignedIn") },
     };
