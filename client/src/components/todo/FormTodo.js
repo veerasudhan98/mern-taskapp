@@ -14,10 +14,6 @@ class FormTodo extends React.Component {
     };
 
     renderInput = ({ input, label, meta }) => {
-        //{input} from 'formProps';
-        // now input has multiple props like onChange,value and etc..
-        //and we are using all at once. check reduxdevtool for more info.
-        // const fieldOnError = `required field ${meta.error && meta.touched ? 'error' : ''}`
         return (
             <div style={{ padding: "20px" }}>
                 <label>
@@ -57,6 +53,12 @@ class FormTodo extends React.Component {
                         name="description"
                         component={this.renderInput}
                         label="Task description"
+                        style={{ fontSize: "10pt" }}
+                    />
+                    <Field
+                        name="completed"
+                        component={this.renderInput}
+                        label="completed"
                         style={{ fontSize: "10pt" }}
                     />
                     <button

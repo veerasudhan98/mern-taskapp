@@ -3,39 +3,46 @@ import React from "react";
 // import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchTodos, editTodo } from "../../action";
-import CheckBox from "./CheckBox";
+import { fetchTodos, editTodo, fetchTodo } from "../../action";
+//import CheckBox from "./CheckBox";
 
 class ListTodo extends React.Component {
     componentDidMount() {
-        if (window.localStorage.getItem("isSignedIn") === "true") {
-            this.props.fetchTodos();
-        }
+        this.props.fetchTodos();
     }
 
     renderButton = (todo) => {
-        if (this.props.local.isSignedIn === null) {
-            return "Loding..";
-        } else {
-            return (
-                <div>
-                    <div
-                        className="right floated content"
-                        style={{ textAlign: "right" }}
+        // if (this.props.local.isSignedIn === null) {
+        //     return "Loding..";
+        // } else {
+        return (
+            <div>
+                <div
+                    className="right floated content"
+                    style={{ textAlign: "right" }}
+                >
+                    <p
+                        style={{
+                            paddingRight: "200px",
+                            margin: "0px",
+                            textAlign: "center",
+                            width: "100px",
+                        }}
                     >
-                        <Link
-                            style={{ paddingRight: "30px" }}
-                            to={`/todos/edit/${todo._id}`}
-                        >
-                            <i className="ui large gray edit outline icon"></i>
-                        </Link>
-                        <Link to={`/todos/delete/${todo._id}`}>
-                            <i className="ui large red trash alternate icon"></i>
-                        </Link>
-                    </div>
+                        {todo.completed === true ? "completed" : "ongoing"}
+                    </p>
+                    <Link
+                        style={{ paddingRight: "30px" }}
+                        to={`/todos/edit/${todo._id}`}
+                    >
+                        <i className="ui large gray edit outline icon"></i>
+                    </Link>
+                    <Link to={`/todos/delete/${todo._id}`}>
+                        <i className="ui large red trash alternate icon"></i>
+                    </Link>
                 </div>
-            );
-        }
+            </div>
+        );
     };
     renderCreateTaskButton = () => {
         return (
@@ -53,8 +60,18 @@ class ListTodo extends React.Component {
             </div>
         );
     };
+    showTitle = (title, completed) => {
+        if (completed === true) {
+            return (
+                <del>
+                    <h4>title</h4>
+                </del>
+            );
+        } else return <h4>title</h4>;
+    };
     renderList = () => {
         return this.props.todos.map((todo) => {
+            console.log(todo.completed);
             return (
                 <div
                     className="item"
@@ -62,12 +79,16 @@ class ListTodo extends React.Component {
                     key={todo._id}
                 >
                     {this.renderButton(todo)}
-                    <div>
+                    <div style={{ paddingRight: "100px" }}>
+                        {this.showTitle(todo.title, todo.completed)}
+                    </div>
+
+                    {/* <div>
                         <CheckBox
                             completed={todo.completed}
                             label={todo.title}
                         />
-                    </div>
+                    </div> */}
                 </div>
             );
         });
@@ -88,11 +109,8 @@ class ListTodo extends React.Component {
         // const className = this.props.isSignedIn? "ui celled list":'';
         return (
             <div className="ui segment">
-                <h2>Tasks</h2>
-                <div className="ui celled list">
-                    {this.renderList()}
-                    {this.renderCreateTaskButton()}
-                </div>
+                {this.renderCreateTaskButton()}
+                <div className="ui celled list">{this.renderList()}</div>
             </div>
         );
     }

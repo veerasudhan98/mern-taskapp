@@ -17,6 +17,7 @@ class DeleteTodo extends React.Component {
     };
     renderAction = () => {
         const id = this.props.match.params.id;
+        console.log(id);
         return (
             <React.Fragment>
                 <Link
