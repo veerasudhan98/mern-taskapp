@@ -165,7 +165,7 @@ export const editTodo = (id, formValue) => async (dispatch) => {
         },
     });
     dispatch({ type: EDIT_TODO, payload: response.data });
-    history.push("/todos/list");
+    history.push("/todos/create");
 };
 
 export const editUser = (formValues) => async (dispatch) => {

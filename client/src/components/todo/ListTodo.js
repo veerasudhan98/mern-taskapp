@@ -13,12 +13,13 @@ class ListTodo extends React.Component {
 
     renderButton = (todo) => {
         if (!todo.title) {
+            const name =
+                this.props.isSignedIn === true
+                    ? this.props.currentUser.userId.name
+                    : "";
             return (
                 <div style={{ textAlign: "center" }}>
-                    <p>
-                        welcome {this.props.currentUser.userId.name}, push new
-                        to get started
-                    </p>
+                    <p>welcome {name}, push new to get started</p>
                 </div>
             );
         } else {
