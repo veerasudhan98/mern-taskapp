@@ -16,7 +16,7 @@ class ListTodo extends React.Component {
     componentDidMount() {
         if (window.localStorage.getItem("reload") === "true") {
             console.log(window.localStorage.getItem("reload"));
-            this.reload();
+            //this.reload();
             window.localStorage.setItem("reload", false);
         }
         this.props.fetchTodos();

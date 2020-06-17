@@ -49,17 +49,14 @@ export const signIn = (formValue) => async (dispatch) => {
             url: "/users/login",
             data: formValue,
         });
-        if (!response.error) {
-            const { user, token } = response.data;
-            window.localStorage.clear();
-            window.localStorage.setItem("token", token);
-            window.localStorage.setItem("_id", user._id);
-            window.localStorage.setItem("isSignedIn", true);
-            window.localStorage.setItem("reload", true);
-            history.push("/task/create");
-        }
+        const { user, token } = response.data;
+        window.localStorage.clear();
+        window.localStorage.setItem("token", token);
+        window.localStorage.setItem("_id", user._id);
+        window.localStorage.setItem("isSignedIn", true);
+        window.localStorage.setItem("reload", true);
         dispatch({ type: SIGN_IN, payload: response.data.user });
-
+        //history.push("/task/create");
         history.push("/todos/list");
     } catch (e) {
         alert("Invalid credentials!");
