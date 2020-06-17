@@ -3,7 +3,7 @@ import React from "react";
 // import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchTodos, editTodo, fetchTodo } from "../../action";
+import { fetchTodos, editTodo } from "../../action";
 //import CheckBox from "./CheckBox";
 
 class ListTodo extends React.Component {
@@ -63,11 +63,11 @@ class ListTodo extends React.Component {
     showTitle = (title, completed) => {
         if (completed === true) {
             return (
-                <del>
-                    <h4>title</h4>
+                <del style={{ color: "#D3D3D3" }}>
+                    <h4>{title}</h4>
                 </del>
             );
-        } else return <h4>title</h4>;
+        } else return <h4>{title}</h4>;
     };
     renderList = () => {
         return this.props.todos.map((todo) => {

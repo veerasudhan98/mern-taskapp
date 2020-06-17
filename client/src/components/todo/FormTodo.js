@@ -13,13 +13,13 @@ class FormTodo extends React.Component {
         }
     };
 
-    renderInput = ({ input, label, meta }) => {
+    renderInput = ({ input, label, meta, type }) => {
         return (
             <div style={{ padding: "20px" }}>
                 <label>
                     <h4>{label}</h4>
                 </label>
-                <input {...input} autoComplete="off" />
+                <input type={type} {...input} autoComplete="off" />
                 {this.renderError(meta)}
             </div>
         );
@@ -59,6 +59,7 @@ class FormTodo extends React.Component {
                         name="completed"
                         component={this.renderInput}
                         label="completed"
+                        type="checkbox"
                         style={{ fontSize: "10pt" }}
                     />
                     <button

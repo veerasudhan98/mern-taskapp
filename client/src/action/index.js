@@ -104,7 +104,7 @@ export const createTodo = (formValue) => async (dispatch) => {
         dispatch({ type: CREATE_TODO, payload: response.data });
         history.push("/todos/list");
     } catch (e) {
-        history.push("todos/login");
+        history.push("/todos/login");
     }
 };
 

@@ -21,10 +21,16 @@ class ReadProfile extends React.Component {
         }
         const { _id, name, email, createdAt, updatedAt } = this.props.profile;
         return (
-            <div>
-                <div className="ui two column grid">
+            <div
+                className="ui two column grid"
+                style={{ paddingLeft: "400px" }}
+            >
+                <div className="ui column ">
                     <div className="column">
-                        <div className="ui raised segment">
+                        <div
+                            className="ui raised segment"
+                            style={{ position: "fixed" }}
+                        >
                             <div className="ui red ribbon label">Profile</div>
                             <h4>UserId: </h4>
                             <p>{_id}</p>
@@ -36,7 +42,12 @@ class ReadProfile extends React.Component {
                             <p>{createdAt}</p>
                             <h4>UpdatedAt: </h4>
                             <p>{updatedAt}</p>
-                            <div style={{ padding: "20px" }}>
+                            <div
+                                style={{
+                                    padding: "50px",
+                                    marginRight: "30px    ",
+                                }}
+                            >
                                 <Link
                                     to="/todos/profile/edit"
                                     className="ui primary button"
@@ -44,6 +55,7 @@ class ReadProfile extends React.Component {
                                     edit
                                 </Link>
                                 <div
+                                    style={{ marginLeft: "30px" }}
                                     onClick={() => this.props.signOut()}
                                     className="ui right red button"
                                 >
