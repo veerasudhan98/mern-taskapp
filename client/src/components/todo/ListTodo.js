@@ -7,7 +7,18 @@ import { fetchTodos, editTodo } from "../../action";
 //import CheckBox from "./CheckBox";
 
 class ListTodo extends React.Component {
+    reload = () => {
+        if (!window.location.hash) {
+            window.location = window.location + "#loaded";
+            window.location.reload();
+        }
+    };
     componentDidMount() {
+        if (window.localStorage.getItem("reload") === "true") {
+            console.log(window.localStorage.getItem("reload"));
+            this.reload();
+            window.localStorage.setItem("reload", false);
+        }
         this.props.fetchTodos();
     }
 
@@ -58,12 +69,8 @@ class ListTodo extends React.Component {
         }
     };
     renderCreateTaskButton = () => {
+        console.log("this runs");
         return (
-            // <Container>
-            //     <Button color="dark" style={{ marginBottom: "2rem" }}>
-            //         Add task{/* <Link to="/todos/create">Add task</Link> */}
-            //     </Button>
-            // </Container>
             <div style={{ textAlign: "center" }}>
                 <Link to="/todos/create" className="item">
                     <button className="ui button">
@@ -99,24 +106,17 @@ class ListTodo extends React.Component {
             );
         });
     };
-    // reload = () => {
-    //     if (window.localStorage.getItem("isSignedIn") === "false") {
-    //         if (!window.location.hash) {
-    //             window.location = window.location + "#loaded";
-    //             window.location.reload();
-    //         }
-    //     }
-    // };
+
     render() {
-        // this.props.fetchTodos();
-
-        // this.reload();
-
-        // const className = this.props.isSignedIn? "ui celled list":'';
+        if (!this.props.todos) {
+            return "Loading..";
+        }
         return (
-            <div className="ui segment">
+            <div>
                 {this.renderCreateTaskButton()}
-                <div className="ui celled list">{this.renderList()}</div>
+                <div className="ui segment">
+                    <div className="ui celled list">{this.renderList()}</div>
+                </div>
             </div>
         );
     }

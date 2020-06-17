@@ -55,6 +55,8 @@ export const signIn = (formValue) => async (dispatch) => {
             window.localStorage.setItem("token", token);
             window.localStorage.setItem("_id", user._id);
             window.localStorage.setItem("isSignedIn", true);
+            window.localStorage.setItem("reload", true);
+            history.push("/task/create");
         }
         dispatch({ type: SIGN_IN, payload: response.data.user });
 
@@ -165,7 +167,7 @@ export const editTodo = (id, formValue) => async (dispatch) => {
         },
     });
     dispatch({ type: EDIT_TODO, payload: response.data });
-    history.push("/todos/create");
+    history.push("/todos/list");
 };
 
 export const editUser = (formValues) => async (dispatch) => {
