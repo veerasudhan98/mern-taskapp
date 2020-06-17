@@ -1,0 +1,110 @@
+import React from "react";
+// import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+// import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchTodos, editTodo } from "../../action";
+import CheckBox from "./CheckBox";
+
+class ListTodo extends React.Component {
+    componentDidMount() {
+        if (window.localStorage.getItem("isSignedIn") === "true") {
+            this.props.fetchTodos();
+        }
+    }
+
+    renderButton = (todo) => {
+        if (this.props.local.isSignedIn === null) {
+            return "Loding..";
+        } else {
+            return (
+                <div>
+                    <div
+                        className="right floated content"
+                        style={{ textAlign: "right" }}
+                    >
+                        <Link
+                            style={{ paddingRight: "30px" }}
+                            to={`/todos/edit/${todo._id}`}
+                        >
+                            <i className="ui large gray edit outline icon"></i>
+                        </Link>
+                        <Link to={`/todos/delete/${todo._id}`}>
+                            <i className="ui large red trash alternate icon"></i>
+                        </Link>
+                    </div>
+                </div>
+            );
+        }
+    };
+    renderCreateTaskButton = () => {
+        return (
+            // <Container>
+            //     <Button color="dark" style={{ marginBottom: "2rem" }}>
+            //         Add task{/* <Link to="/todos/create">Add task</Link> */}
+            //     </Button>
+            // </Container>
+            <div style={{ textAlign: "center" }}>
+                <Link to="/todos/create" className="item">
+                    <button className="ui button">
+                        <i className=" ui plus square outline icon"></i>New
+                    </button>
+                </Link>
+            </div>
+        );
+    };
+    renderList = () => {
+        return this.props.todos.map((todo) => {
+            return (
+                <div
+                    className="item"
+                    style={{ padding: "10px" }}
+                    key={todo._id}
+                >
+                    {this.renderButton(todo)}
+                    <div>
+                        <CheckBox
+                            completed={todo.completed}
+                            label={todo.title}
+                        />
+                    </div>
+                </div>
+            );
+        });
+    };
+    reload = () => {
+        if (window.localStorage.getItem("isSignedIn") === "false") {
+            if (!window.location.hash) {
+                window.location = window.location + "#loaded";
+                window.location.reload();
+            }
+        }
+    };
+    render() {
+        // this.props.fetchTodos();
+
+        this.reload();
+
+        // const className = this.props.isSignedIn? "ui celled list":'';
+        return (
+            <div className="ui segment">
+                <h2>Tasks</h2>
+                <div className="ui celled list">
+                    {this.renderList()}
+                    {this.renderCreateTaskButton()}
+                </div>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        todos: Object.values(state.todo),
+        currentUserId: state.auth.userId,
+        isSignedIn: state.auth.isSignedIn,
+        local: { isSignedIn: window.localStorage.getItem("isSignedIn") },
+    };
+};
+
+export default connect(mapStateToProps, { fetchTodos, editTodo })(ListTodo);
