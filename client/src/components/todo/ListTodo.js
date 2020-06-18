@@ -23,50 +23,36 @@ class ListTodo extends React.Component {
     }
 
     renderButton = (todo) => {
-        if (!todo.title) {
-            const name =
-                this.props.isSignedIn === true
-                    ? this.props.currentUser.userId.name
-                    : "";
-            return (
-                <div style={{ textAlign: "center" }}>
-                    <p>welcome {name}, push new to get started</p>
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <div
-                        className="right floated content"
-                        style={{ textAlign: "right" }}
+        return (
+            <div>
+                <div
+                    className="right floated content"
+                    style={{ textAlign: "right" }}
+                >
+                    <p
+                        style={{
+                            paddingRight: "200px",
+                            margin: "0px",
+                            textAlign: "center",
+                            width: "100px",
+                        }}
                     >
-                        <p
-                            style={{
-                                paddingRight: "200px",
-                                margin: "0px",
-                                textAlign: "center",
-                                width: "100px",
-                            }}
-                        >
-                            <i>
-                                {todo.completed === true
-                                    ? "completed"
-                                    : "ongoing"}
-                            </i>
-                        </p>
-                        <Link
-                            style={{ paddingRight: "30px" }}
-                            to={`/todos/edit/${todo._id}`}
-                        >
-                            <i className="ui large gray edit outline icon"></i>
-                        </Link>
-                        <Link to={`/todos/delete/${todo._id}`}>
-                            <i className="ui large red trash alternate icon"></i>
-                        </Link>
-                    </div>
+                        <i>
+                            {todo.completed === true ? "completed" : "ongoing"}
+                        </i>
+                    </p>
+                    <Link
+                        style={{ paddingRight: "30px" }}
+                        to={`/todos/edit/${todo._id}`}
+                    >
+                        <i className="ui large gray edit outline icon"></i>
+                    </Link>
+                    <Link to={`/todos/delete/${todo._id}`}>
+                        <i className="ui large red trash alternate icon"></i>
+                    </Link>
                 </div>
-            );
-        }
+            </div>
+        );
     };
     renderCreateTaskButton = () => {
         console.log("this runs");

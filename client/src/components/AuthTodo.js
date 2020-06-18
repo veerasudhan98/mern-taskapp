@@ -5,6 +5,7 @@ import { signOut } from "../action";
 import { fetchTodo } from "../action";
 
 class AuthTodo extends React.Component {
+    componentDidMount;
     reload = () => {
         if (!window.location.hash) {
             window.location = window.location + "#loaded";
