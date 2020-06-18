@@ -40,7 +40,7 @@ class FormTodo extends React.Component {
 
                 <h3>{this.props.heading}</h3>
                 <form
-                    className="ui form"
+                    className="ui form error"
                     onSubmit={this.props.handleSubmit(this.onOnceSubmit)}
                 >
                     <Field

@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 
 import GetStarted from "./todo/GetStarted";
 import UserSignUp from "./todo/UserSignUp";
@@ -18,7 +18,7 @@ import history from "../history";
 const App = () => {
     return (
         <div className="ui container">
-            <HashRouter history={history}>
+            <Router history={history}>
                 <div>
                     <Header />
                     <Switch>
@@ -66,7 +66,7 @@ const App = () => {
                         />
                     </Switch>
                 </div>
-            </HashRouter>
+            </Router>
         </div>
     );
 };

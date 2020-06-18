@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { fetchTodo, editTodo } from "../../action";
 import FormTodo from "./FormTodo";
 
@@ -35,4 +36,6 @@ const mapStateToProps = (state, ownProps) => {
     return { todo: state.todo[ownProps.match.params.id] };
 };
 
-export default connect(mapStateToProps, { fetchTodo, editTodo })(EditTodo);
+export default connect(mapStateToProps, { fetchTodo, editTodo })(
+    withRouter(EditTodo)
+);

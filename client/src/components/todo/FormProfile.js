@@ -33,7 +33,7 @@ class FormProfile extends React.Component {
             <div>
                 <form
                     className="ui form error"
-                    style={{ padding: "50px 250px 50px 20px" }}
+                    // style={{ padding: "50px 250px 50px 20px" }}
                     onSubmit={this.props.handleSubmit(this.onOnceSubmit)}
                 >
                     <h3>Edit Account</h3>

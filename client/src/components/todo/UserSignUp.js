@@ -35,7 +35,6 @@ class UserSignUp extends React.Component {
             <div>
                 <form
                     className="ui form error"
-                    style={{ padding: "50px 250px 50px 20px" }}
                     onSubmit={this.props.handleSubmit(this.onOnceSubmit)}
                 >
                     <h3>Create Account</h3>
