@@ -18,9 +18,9 @@ class EditTodo extends React.Component {
     };
 
     render() {
-        if (!this.props.todo) {
-            return <div>Loding...</div>;
-        }
+        // if (!this.props.todo) {
+        //     return <div>Loding...</div>;
+        // }
         return (
             <div>
                 <FormTodo

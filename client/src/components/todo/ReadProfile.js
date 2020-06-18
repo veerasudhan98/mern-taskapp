@@ -8,6 +8,13 @@ class ReadProfile extends React.Component {
         this.props.fetchProfile();
     }
 
+    reload = () => {
+        if (!window.location.hash) {
+            window.location = window.location + "#loaded";
+            window.location.reload();
+        }
+    };
+
     render() {
         if (!this.props.profile) {
             return (
@@ -23,13 +30,13 @@ class ReadProfile extends React.Component {
         return (
             <div
                 className="ui two column grid"
-                style={{ paddingLeft: "400px" }}
+                // style={{ paddingLeft: "400px" }}
             >
                 <div className="ui column ">
                     <div className="column">
                         <div
                             className="ui raised segment"
-                            style={{ position: "fixed" }}
+                            // style={{ position: "fixed" }}
                         >
                             <div className="ui red ribbon label">Profile</div>
                             <h4>UserId: </h4>
@@ -43,10 +50,10 @@ class ReadProfile extends React.Component {
                             <h4>UpdatedAt: </h4>
                             <p>{updatedAt}</p>
                             <div
-                                style={{
-                                    padding: "50px",
-                                    marginRight: "30px    ",
-                                }}
+                            // style={{
+                            //     padding: "50px",
+                            //     marginRight: "30px    ",
+                            // }}
                             >
                                 <Link
                                     to="/todos/profile/edit"
@@ -55,8 +62,11 @@ class ReadProfile extends React.Component {
                                     edit
                                 </Link>
                                 <div
-                                    style={{ marginLeft: "30px" }}
-                                    onClick={() => this.props.signOut()}
+                                    // style={{ marginLeft: "30px" }}
+                                    onClick={() => {
+                                        this.props.signOut();
+                                        this.reload();
+                                    }}
                                     className="ui right red button"
                                 >
                                     logout

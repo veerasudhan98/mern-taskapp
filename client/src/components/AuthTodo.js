@@ -5,13 +5,15 @@ import { signOut } from "../action";
 import { fetchTodo } from "../action";
 
 class AuthTodo extends React.Component {
-    componentDidMount;
-    reload = () => {
-        if (!window.location.hash) {
-            window.location = window.location + "#loaded";
-            window.location.reload();
-        }
-    };
+    // componentDidMount() {
+    //     const isSignedIn = window.localStorage.getItem("isSignedIn");
+    // }
+    // reload = () => {
+    //     if (!window.location.hash) {
+    //         window.location = window.location + "#loaded";
+    //         window.location.reload();
+    //     }
+    // };
     showButton = (button) => {
         if (button === "login") {
             return (
@@ -29,7 +31,8 @@ class AuthTodo extends React.Component {
     };
 
     render() {
-        this.reload();
+        // this.reload();
+        console.log(window.localStorage.getItem("isSignedIn"));
         const button =
             window.localStorage.getItem("isSignedIn") === "true"
                 ? "logout"

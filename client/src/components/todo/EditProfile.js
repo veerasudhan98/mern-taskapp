@@ -5,12 +5,10 @@ import FormProfile from "./FormProfile";
 
 class EditProfile extends React.Component {
     componentDidMount() {
-        console.log(this.props.profile);
         this.props.fetchProfile();
     }
 
     onSubmit = ({ name, email, age, password }) => {
-        console.log(name);
         this.props.editUser({ name, email, age, password });
         // this.props.editUser(this.props.profile,
         //     {name, email, age, password})

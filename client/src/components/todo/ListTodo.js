@@ -23,50 +23,49 @@ class ListTodo extends React.Component {
     }
 
     renderButton = (todo) => {
-        if (!todo.title) {
-            const name =
-                this.props.isSignedIn === true
-                    ? this.props.currentUser.userId.name
-                    : "";
-            return (
-                <div style={{ textAlign: "center" }}>
-                    <p>welcome {name}, push new to get started</p>
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <div
-                        className="right floated content"
-                        style={{ textAlign: "right" }}
+        console.log(todo.title);
+        // if (!todo.title) {
+        //     const name =
+        //         this.props.isSignedIn === true
+        //             ? this.props.currentUser.userId.name
+        //             : "";
+        //     return (
+        //         <div style={{ textAlign: "center" }}>
+        //             <p>welcome {name}, push new to create task</p>
+        //         </div>
+        //     );
+        // } else {
+        return (
+            <div>
+                <div
+                    className="right floated content"
+                    style={{ textAlign: "right" }}
+                >
+                    <p
+                        style={{
+                            paddingRight: "200px",
+                            margin: "0px",
+                            textAlign: "center",
+                            width: "100px",
+                        }}
                     >
-                        <p
-                            style={{
-                                paddingRight: "200px",
-                                margin: "0px",
-                                textAlign: "center",
-                                width: "100px",
-                            }}
-                        >
-                            <i>
-                                {todo.completed === true
-                                    ? "completed"
-                                    : "ongoing"}
-                            </i>
-                        </p>
-                        <Link
-                            style={{ paddingRight: "30px" }}
-                            to={`/todos/edit/${todo._id}`}
-                        >
-                            <i className="ui large gray edit outline icon"></i>
-                        </Link>
-                        <Link to={`/todos/delete/${todo._id}`}>
-                            <i className="ui large red trash alternate icon"></i>
-                        </Link>
-                    </div>
+                        <i>
+                            {todo.completed === true ? "completed" : "ongoing"}
+                        </i>
+                    </p>
+                    <Link
+                        style={{ paddingRight: "30px" }}
+                        to={`/todos/edit/${todo._id}`}
+                    >
+                        <i className="ui large gray edit outline icon"></i>
+                    </Link>
+                    <Link to={`/todos/delete/${todo._id}`}>
+                        <i className="ui large red trash alternate icon"></i>
+                    </Link>
                 </div>
-            );
-        }
+            </div>
+        );
+        // }
     };
     renderCreateTaskButton = () => {
         console.log("this runs");
@@ -90,8 +89,8 @@ class ListTodo extends React.Component {
         } else return <h4>{title}</h4>;
     };
 
-    renderList = () => {
-        return this.props.todos.map((todo) => {
+    renderList = (value) => {
+        return value.map((todo) => {
             return (
                 <div
                     key={todo._id}
@@ -108,14 +107,17 @@ class ListTodo extends React.Component {
     };
 
     render() {
+        const value = this.props.todos.filter((todo) => todo.title);
         if (!this.props.todos) {
-            return "Loading..";
+            return <div>"Loading..";</div>;
         }
         return (
             <div>
                 {this.renderCreateTaskButton()}
                 <div className="ui segment">
-                    <div className="ui celled list">{this.renderList()}</div>
+                    <div className="ui celled list">
+                        {this.renderList(value)}
+                    </div>
                 </div>
             </div>
         );

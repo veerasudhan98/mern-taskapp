@@ -33,7 +33,7 @@ export const signUp = (formValue) => async (dispatch) => {
             data: formValue,
         });
         if (response.status === 201) {
-            alert("Account successfully created");
+            alert("Account successfully created, Login to continue");
         }
         dispatch({ type: SIGNUP_USER, payload: response.data });
         history.push("/todos/login");
@@ -101,7 +101,7 @@ export const createTodo = (formValue) => async (dispatch) => {
             },
         });
         dispatch({ type: CREATE_TODO, payload: response.data });
-        history.push("/todos/lis/todos/list");
+        history.push("/todos/list");
     } catch (e) {
         history.push("/todos/login");
     }
@@ -127,17 +127,18 @@ export const fetchTodos = () => async (dispatch) => {
 
 export const fetchTodo = (id) => async (dispatch) => {
     const token = window.localStorage.getItem("token");
-    const response = await axios({
-        method: "get",
-        url: `/tasks/ ${id}`,
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    if (response.error) {
-        alert(response.error);
+    try {
+        const response = await axios({
+            method: "get",
+            url: `/tasks/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        dispatch({ type: FETCH_TODO, payload: response.data });
+    } catch (e) {
+        console.log(e);
     }
-    dispatch({ type: FETCH_TODO, payload: response.data });
 };
 
 export const fetchProfile = () => async (dispatch) => {
@@ -165,7 +166,7 @@ export const editTodo = (id, formValue) => async (dispatch) => {
     });
     dispatch({ type: EDIT_TODO, payload: response.data });
     // history.push("/todos/list");
-    history.push("/todos/lis/todos/list");
+    history.push("/todos/list");
 };
 
 export const editUser = (formValues) => async (dispatch) => {
@@ -179,7 +180,7 @@ export const editUser = (formValues) => async (dispatch) => {
         },
     });
     dispatch({ type: EDIT_USER, payload: response.data });
-    history.push("/todos/list");
+    history.push("/todos/profile");
 };
 
 // DELETE
