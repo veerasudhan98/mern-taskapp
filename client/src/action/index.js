@@ -29,7 +29,7 @@ export const signUp = (formValue) => async (dispatch) => {
     try {
         const response = await axios({
             method: "post",
-            url: "/users",
+            url: "/users/#",
             data: formValue,
         });
         if (response.status === 201) {
@@ -46,7 +46,7 @@ export const signIn = (formValue) => async (dispatch) => {
     try {
         const response = await axios({
             method: "post",
-            url: "/users/login",
+            url: "/users/login/#",
             data: formValue,
         });
         const { user, token } = response.data;
@@ -67,7 +67,7 @@ export const signOut = () => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "post",
-        url: "/users/logout",
+        url: "/users/logout/#",
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -94,7 +94,7 @@ export const createTodo = (formValue) => async (dispatch) => {
         }
         const response = await axios({
             method: "post",
-            url: "/tasks",
+            url: "/tasks/#",
             data: formValue,
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ export const fetchTodos = () => async (dispatch) => {
     try {
         const response = await axios({
             method: "get",
-            url: "/tasks",
+            url: "/tasks/#",
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -121,7 +121,7 @@ export const fetchTodos = () => async (dispatch) => {
         dispatch({ type: FETCH_TODOS, payload: response.data });
     } catch (e) {
         alert("login to instantly keep track of your task!");
-        history.push("/todos/login");
+        history.push("/todos/login/#");
     }
 };
 
@@ -129,7 +129,7 @@ export const fetchTodo = (id) => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "get",
-        url: "/tasks/" + id,
+        url: `/tasks/ ${id}/#`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -144,7 +144,7 @@ export const fetchProfile = () => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "get",
-        url: "/users/me",
+        url: "/users/me/#",
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -157,7 +157,7 @@ export const editTodo = (id, formValue) => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "patch",
-        url: "/tasks/" + id,
+        url: `/tasks/${id}/#`,
         data: formValue,
         headers: {
             Authorization: `Bearer ${token}`,
@@ -171,7 +171,7 @@ export const editUser = (formValues) => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "patch",
-        url: "/users/me",
+        url: "/users/me/#",
         data: formValues,
         headers: {
             Authorization: `Bearer ${token}`,
@@ -186,7 +186,7 @@ export const deleteTodo = (id) => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "delete",
-        url: "/tasks/" + id,
+        url: `/tasks/${id}/#`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -202,7 +202,7 @@ export const deleteUser = () => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "delete",
-        url: "/users/me",
+        url: "/users/me/#",
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -216,7 +216,7 @@ export const check = () => async (dispatch) => {
     const token = window.localStorage.getItem("token");
     const response = await axios({
         method: "get",
-        url: "/tasks",
+        url: "/tasks/#",
         headers: {
             Authorization: `Bearer ${token}`,
         },
