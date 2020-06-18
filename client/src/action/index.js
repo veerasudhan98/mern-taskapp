@@ -28,7 +28,7 @@ import history from "../history";
 export const signUp = (formValue) => async (dispatch) => {
     try {
         const response = await axios({
-            method: "p  ost",
+            method: "post",
             url: "/users",
             data: formValue,
         });
