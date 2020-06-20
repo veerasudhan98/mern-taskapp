@@ -47,7 +47,7 @@ class Header extends React.Component {
                                     <NavLink href="/todos/list">Todo's</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href="https://github.com/reactstrap/reactstrap">
+                                    <NavLink href="https://github.com/veerasudhan98/mern-taskapp">
                                         GitHub
                                     </NavLink>
                                 </NavItem>
