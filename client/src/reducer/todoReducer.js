@@ -1,6 +1,6 @@
 import _ from "lodash";
 import {
-    SIGNUP_USER,
+    // SIGNUP_USER,
     CREATE_TODO,
     DELETE_TODO,
     EDIT_TODO,
@@ -13,8 +13,8 @@ import {
 
 const todoReducer = (state = {}, action) => {
     switch (action.type) {
-        case SIGNUP_USER:
-            return { ...state, [action.payload.id]: action.payload };
+        // case SIGNUP_USER:
+        //     return { ...state, [action.payload.id]: action.payload };
         // case SIGNIN_USER:
         //     return {...state, [action.payload.id]: action.payload}
         case FETCH_TODOS:

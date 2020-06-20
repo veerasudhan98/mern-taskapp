@@ -7,19 +7,19 @@ import { fetchTodos, editTodo } from "../../action";
 //import CheckBox from "./CheckBox";
 
 class ListTodo extends React.Component {
-    reload = () => {
-        if (!window.location.hash) {
-            window.location = window.location + "#loaded";
-            window.location.reload();
-        }
-    };
+    // reload = () => {
+    //     if (!window.location.hash) {
+    //         window.location = window.location + "#loaded";
+    //         window.location.reload();
+    //     }
+    // };
     componentDidMount() {
-        if (window.localStorage.getItem("reload") === "true") {
-            console.log(window.localStorage.getItem("reload"));
-            //this.reload();
-            window.localStorage.setItem("reload", false);
-        }
-        this.props.fetchTodos();
+        // if (window.localStorage.getItem("reload") === "true") {
+        //     console.log(window.localStorage.getItem("reload"));
+        //     //this.reload();
+        //     window.localStorage.setItem("reload", false);
+        // }
+        this.props.fetchTodos(this.props.token);
     }
 
     renderButton = (todo) => {
@@ -68,7 +68,6 @@ class ListTodo extends React.Component {
         // }
     };
     renderCreateTaskButton = () => {
-        console.log("this runs");
         return (
             <div style={{ textAlign: "center" }}>
                 <Link to="/todos/create" className="item">
@@ -109,7 +108,7 @@ class ListTodo extends React.Component {
     render() {
         const value = this.props.todos.filter((todo) => todo.title);
         if (!this.props.todos) {
-            return <div>"Loading..";</div>;
+            return <div>"Loading.."</div>;
         }
         return (
             <div>
@@ -127,9 +126,10 @@ class ListTodo extends React.Component {
 const mapStateToProps = (state) => {
     return {
         todos: Object.values(state.todo),
-        currentUser: state.auth,
-        isSignedIn: state.auth.isSignedIn,
-        local: { isSignedIn: window.localStorage.getItem("isSignedIn") },
+        currentUser: state.auth.user,
+        token: state.auth.token,
+        isSignedIn: state.auth.isAuthenticated,
+        // local: { isSignedIn: window.localStorage.getItem("isSignedIn") },
     };
 };
 

@@ -1,32 +1,54 @@
 const express = require("express");
 const User = require("../model/users");
 const auth = require("../middleware/auth");
+const bcrypt = require("bcryptjs");
 
 const router = new express.Router();
 
 router.post("/users", async (req, res) => {
-    const user = new User(req.body);
-    console.log(user);
-    try {
-        await user.save();
+    const { name, email, password } = req.body;
 
-        const token = await user.generateAuthToken();
-        res.status(201).send({ user, token });
+    if (!name || !email || !password) {
+        return res.status(400).json({ msg: "please enter required fields" });
+    }
+
+    try {
+        const user = await User.findOne({ email });
+        if (user) throw Error("User already exists");
+
+        const newUser = new User(req.body);
+
+        await newUser.save();
+
+        const token = await newUser.generateAuthToken();
+
+        res.status(201).send({ newUser, token });
     } catch (e) {
-        res.status(400).send(e);
+        res.status(400).json({ error: e.message });
     }
 });
 
 router.post("/users/login", async (req, res) => {
+    // const user = await User.findByCredentials(
+    //     req.body.email,
+    //     req.body.password
+    // );
+    const { email, password } = req.body;
     try {
-        const user = await User.findByCredentials(
-            req.body.email,
-            req.body.password
-        );
+        if (!email || !password) {
+            return alert("Please enter the fields");
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) throw Error("User Does not exist");
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) throw Error("Invalid password");
+
         const token = await user.generateAuthToken();
         res.send({ user, token });
     } catch (e) {
-        res.status(400).send();
+        res.status(400).json({ error: e.message });
     }
 });
 router.post("/users/logout", auth, async (req, res) => {

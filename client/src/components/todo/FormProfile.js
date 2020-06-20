@@ -24,7 +24,6 @@ class FormProfile extends React.Component {
         );
     };
     onOnceSubmit = (formValues) => {
-        console.log("this.is", formValues);
         this.props.onSubmit(formValues);
     };
 
@@ -49,14 +48,22 @@ class FormProfile extends React.Component {
                         label="EmailId"
                         type="email"
                     />
-                    <Field
+                    {/* <Field
                         name="age"
                         component={this.renderInput}
                         label="Age"
                         type="number"
+                    /> */}
+                    <Field
+                        name="oldpassword"
+                        placeholder="enter old password"
+                        component={this.renderInput}
+                        label="Password"
+                        type="password"
                     />
                     <Field
                         name="password"
+                        placeholder="enter new password"
                         component={this.renderInput}
                         label="Password"
                         type="password"

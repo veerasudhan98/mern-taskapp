@@ -1,17 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchProfile, editUser } from "../../action";
+import { editUser } from "../../action";
 import FormProfile from "./FormProfile";
 
 class EditProfile extends React.Component {
-    componentDidMount() {
-        this.props.fetchProfile();
-    }
-
-    onSubmit = ({ name, email, age, password }) => {
-        this.props.editUser({ name, email, age, password });
-        // this.props.editUser(this.props.profile,
-        //     {name, email, age, password})
+    onSubmit = ({ name, email, password }) => {
+        this.props.editUser({ name, email, password });
     };
 
     render() {
@@ -29,10 +23,8 @@ class EditProfile extends React.Component {
         );
     }
 }
-const mapStateToProps = (state, ownProps) => {
-    return { profile: state.todo["profile"] };
+const mapStateToProps = (state) => {
+    return { profile: state.auth.user };
 };
 
-export default connect(mapStateToProps, { fetchProfile, editUser })(
-    EditProfile
-);
+export default connect(mapStateToProps, { editUser })(EditProfile);
